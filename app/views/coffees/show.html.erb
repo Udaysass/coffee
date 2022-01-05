@@ -1,9 +1,4 @@
 <h1><%= @coffee.name %></h1>
 
 <p><%= @coffee.amount %></p>
-<ul>
-  <li><%= link_to "Edit",  edit_admin_coffee_path(@coffee) %></li>
-  <li><%= link_to "Destroy", coffee_path(@coffee),
-                  method: :delete,
-                  data: { confirm: "Are you sure?" } %></li>
-</ul>
+<p><img src="<%= (url_for(@coffee.image)) %>"></p>

@@ -1,5 +1,5 @@
 class Admin::CoffeesController < Admin::AdminsController
-  #before_action :authenticate_!
+  before_action :set_coffee, only: %i[show edit  update destroy]
 
   def index
     @coffees =  Coffee.all
@@ -14,8 +14,8 @@ class Admin::CoffeesController < Admin::AdminsController
   end
 
   def create
-    @coffee = Coffee.new(params[:id])
-    if coffee.save
+    @coffee = Coffee.new(coffee_params)
+    if @coffee.save
       redirect_to  [:admin, @coffee]
     else
       render :new
@@ -29,15 +29,24 @@ class Admin::CoffeesController < Admin::AdminsController
   def update
     @coffee = Coffee.find(params[:id])
     if coffee.update(coffee_params)
-      redirect_to @coffee
+      redirect_to admin_coffee_path
     else
       render :edit
     end 
   end
 
+  def destroy
+    @coffee.destroy
+    redirect_to admin_coffees_path
+  end  
   private
 
+  def set_coffee
+   @coffee =  Coffee.find(params[:id])
+  end 
+
+
   def coffee_params
-    params.require(:coffee).permit(:name, :amount)
+    params.require(:coffee).permit(:name, :amount, :image)
   end
 end

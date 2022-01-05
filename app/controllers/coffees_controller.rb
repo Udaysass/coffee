@@ -9,9 +9,9 @@ class CoffeesController < ApplicationController
     @coffee = Coffee.find(params[:id])
   end  
 
-  private
-
+ private 
+  
   def coffee_params
-    params.require(:coffee).permit(:name, :amount)
+    params.require(:coffee).permit(:name, :amount, :image)
   end
 end

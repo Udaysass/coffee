@@ -1,11 +1,14 @@
-<h1>Coffees</h1>
+<h1>dashboard</h1>
 
 <ul>
   <% @coffees.each do |coffee| %>
     <li>
-      <%= link_to coffee.name, coffee %>
+      
+      <%= link_to coffee.name, coffee_path(coffee) %>
     </li>
   <% end %>
 </ul>
 
-<%= link_to "Create New coffee", new_admin_coffee_path %>
+
+<%#= link_to 'log out', destroy_user_session_path, method: :delete %>
+  
