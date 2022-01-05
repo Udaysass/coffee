@@ -4,13 +4,13 @@
 
 <p><img src="<%= (url_for(@coffee.image)) %>"></p>
 
-<#% if admin_signed_in? %>
-<ul>
+<!-- <#% if admin_signed_in? %>
+ --><ul>
   <li><%= link_to "Edit",  edit_admin_coffee_path(@coffee) %></li>
   <li><%= link_to "Destroy", admin_coffee_path(@coffee),
                   method: :delete,
                   data: { confirm: "Are you sure?" } %></li>
 </ul>
-<#% else %>
-   <%= link_to "home page", root_path(@coffee) %>
-<#% end %>  
+<!-- <#% else %> -->
+   <%= link_to "home page",   admin_coffees_path(@coffee) %>
+<!-- <#% end %>   -->
