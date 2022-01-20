@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
  
+  get 'orders/index'
+  get 'orders/create'
   devise_for :users
     # namespace:'admin' do 
     #   resources :coffees
@@ -9,11 +11,18 @@ Rails.application.routes.draw do
       root "coffees#index"
       resources :coffees
     end
-    root "coffee#index"
+    root "dashboard#index"
     resources :coffees, :only => [:index, :show]  do
     end  
-
-   
+    resources :payments
+ 
+    # get 'payments/create'
+    # get 'payments/show'
+    get 'carts/:id' => "carts#show", as: "cart"
+    
+    post "coffees/add_to_cart/:id", to: "coffees#add_user_card", as: "add_user_card"
+    delete "coffees/remove_from_cart/:id", to: "coffees#remove_user_card", as: "remove_user_card"
+    get 'show_all_carts', to: 'dashboard#show_all_carts'
 end 
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

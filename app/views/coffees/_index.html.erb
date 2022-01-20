@@ -1,0 +1,38 @@
+
+<nav class="navbar navbar-expand-lg navbar-light bg-primary">
+  <a class="navbar-brand" href="#"> Dashboard </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">   
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li> 
+    </ul>
+  </div>
+</nav>
+<%= link_to 'log out', destroy_user_session_path, method: :delete %>
+<div class="container p-5">
+  <div class="row">
+    <% @coffees.each do |coffee| %>
+      <div class="col-md-4">
+        <div class="card">  
+          <%= image_tag coffee.image, class: 'card-img-top' %>
+        </div>
+        <div class="card-body">
+          <div class="card-title">
+            <h5><%= link_to coffee.name, coffee_path(coffee) %></h5>
+          </div>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+        <div class='row d-flex justify-content-center'>
+          <%= button_to 'Add to cart +', add_user_card_path(coffee), class: 'btn btn-sm btn-outline-primary mt-2'  %>
+          <b class='mt-3 ml-3'></b>
+          <%#= button_to 'remove -', remove_user_card_path(coffee), method: :delete, class: 'btn btn-sm btn-outline-danger mt-2 ml-3' %>    
+        </div>
+      </div>
+    <% end %>  
+  </div>
+
+<%#= link_to 'log out', destroy_user_session_path, method: :delete %>

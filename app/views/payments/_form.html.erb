@@ -1,0 +1,36 @@
+<h1>payment</h1>
+
+
+<%= form_with model: @payment do |form| %>
+  <div><%= form.radio_button :payment_type, "credit card" %>
+    <%= form.label :payment_type, "credit" %>
+    <%= form.radio_button :payment_type, "debit card" %>
+    <%= form.label :payment_type, "debit" %>
+  </div>
+  <div>
+    <%= form.label :card_number %><br>
+    <%= form.number_field :card_number %>
+    <% @payment.errors.full_messages_for(:card_number).each do |message| %>
+    <div><%= message %></div>
+   <% end %>
+  </div>
+
+  <div>
+    <%= form.label :cvc %><br>
+    <%= form.number_field :cvc %><br>
+    <% @payment.errors.full_messages_for(:cvc).each do |message| %>
+   <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :date %><br>
+    <%= form.date_field :cc_exp_month%>
+  </div><br>        
+  <%= form.hidden_field :user_card_id, value: @cart_id %>
+
+  <div>
+    <%= form.submit "Create" %>
+  </div>
+<% end %>
+      

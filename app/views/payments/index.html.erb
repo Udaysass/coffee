@@ -1,0 +1,14 @@
+<h1>History</h1>
+
+<ul>
+  <% @payments.each do |payment| %>
+    <li>
+      
+      <%= link_to payment.payment_type, payment_path(payment) %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to "Make new payment", new_payment_path %>
+
+

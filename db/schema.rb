@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_05_175518) do
+ActiveRecord::Schema.define(version: 2022_01_20_074037) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -63,11 +63,13 @@ ActiveRecord::Schema.define(version: 2022_01_05_175518) do
 
   create_table "payments", force: :cascade do |t|
     t.string "payment_type"
-    t.integer "user_id"
-    t.integer "order_id"
-    t.string "status"
+    t.integer "card_number"
+    t.integer "cvc"
+    t.date "cc_exp_month"
+    t.integer "user_card_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_card_id"], name: "index_payments_on_user_card_id"
   end
 
   create_table "user_cards", force: :cascade do |t|
@@ -75,6 +77,7 @@ ActiveRecord::Schema.define(version: 2022_01_05_175518) do
     t.integer "coffee_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "quantity"
     t.index ["coffee_id"], name: "index_user_cards_on_coffee_id"
     t.index ["user_id"], name: "index_user_cards_on_user_id"
   end
@@ -100,6 +103,7 @@ ActiveRecord::Schema.define(version: 2022_01_05_175518) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "payments", "user_cards"
   add_foreign_key "user_cards", "coffees"
   add_foreign_key "user_cards", "users"
 end

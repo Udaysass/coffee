@@ -2,12 +2,14 @@
 
 one:
   payment_type: MyString
-  user_id: 1
-  order_id: 1
-  status: MyString
+  card_number: 1
+  cvc: 1
+  cc_exp_month: 2022-01-20
+  user_card: one
 
 two:
   payment_type: MyString
-  user_id: 1
-  order_id: 1
-  status: MyString
+  card_number: 1
+  cvc: 1
+  cc_exp_month: 2022-01-20
+  user_card: two

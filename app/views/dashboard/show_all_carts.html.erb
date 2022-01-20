@@ -1,0 +1,64 @@
+<div class='container'>
+  <% if current_user.user_cards.present? %>
+    <div class="container">
+      <div class='row mt-2 p-3'>
+        <div class='col-md-8 d-flex justify-content-end'>
+          <h2>See your Cart items</h2>
+        </div>
+      </div>
+    </div>  
+    <div class="container">
+      <div class='row'>
+        <% current_user.user_cards.each do |cart| %>
+          <% if @user_fav_coffee.include?(cart.coffee.id) %>
+            <div class='col-md-4'> 
+              <div class='card mb-5 border-0 shadow fav_cards_items'>
+                <div class='card-body'>
+                  <div class="card">  
+                    <%= image_tag cart.coffee.image, class: 'card-img-top' %>
+                  </div>
+                  <div class='card-title'>
+                    <h6><%= cart.coffee.name %></h6>  
+                  </div>
+                  <div class='card-text text-muted'>
+                   <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  </div>
+                </div>
+                <div class='card-footer mt-1'>
+                  <div class='row'>
+                     <label for="count" class="col-sm-4 -label">Qunatity -</label><%= cart.quantity %><br>
+                      
+                     <%= button_to 'Add more +', add_user_card_path(cart.coffee), class: 'btn btn-sm btn-success ml-2' %></div><br>
+                     <div class='row'>
+                    <%= button_to 'decrement -', remove_user_card_path(cart.coffee), method: :delete, class: 'btn btn-sm btn-danger ml-2' %>
+                  </div> <br> 
+                  <div class='row float-right mr-1'>
+                    <%#= link_to 'Buy', 'javascript:void(0)', class: 'btn btn-success mt-3 ml-1' %>
+                    <%#= button_to 'Buy', payments_path(@payment), class: 'btn btn-success mt-3 ml-1' %>
+                    <%= link_to 'Buy', new_payment_path(cart_id: cart.id) %>
+                  </div>  
+                </div>
+              </div>  
+            </div>  
+          <% end %>
+        <% end %>
+      </div>
+     <%= button_to "Back", root_path, :class => 'btn btn-success mt-3 ml-1' , :method => :get %>
+    </div> 
+  </div>  
+  <% else %>
+    <div class="container mb-5 mt-3">
+      <div class="col-md-6 mx-auto">
+        <h3>List you favourite coffee</h3>
+        <div class="shadow text-danger mt-5 p-5">
+          <h1>Cart List is empty.</h1>
+        </div>
+      </div>
+    </div>  
+  <% end %>
+</div>
+
+
+
+
+
