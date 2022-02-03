@@ -5,9 +5,11 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
           # has_one :cart
           # has_many :orders
-          # has_many :payments
           # has_one :wallet, :through =>:payment
-    
-    has_many :user_cards, dependent: :destroy
-    has_many :coffees, through: :user_cards 
+  has_many :payments
+  has_many :user_cards, dependent: :destroy
+  has_many :coffees, through: :user_cards 
+  has_many :reviews
+  has_many :orders, dependent: :destroy
+  has_many :items, :as => :itemable
 end

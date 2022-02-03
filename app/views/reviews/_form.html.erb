@@ -1,0 +1,27 @@
+
+
+<%= simple_form_for([@order, @order.reviews.build]) do |f| %>
+  <div id="rating-form">
+    <label>Rating</label>
+  </div>
+  <%= f.input :comment %>
+  <%= f.button :submit, :class => "btn-custom2" %>
+<% end %>
+
+<!-- <%#= form_for ([@order, @order.reviews.build]) do |form| %>
+
+<%#= form_for [:order, @review] do |form| %>
+  <div>
+    <%#= form.label :rating%><br>
+    <%#= form.number_field :rating %>
+  </div>
+
+  <div>
+    <%#= form.label :comment %><br>
+    <%#= form.text_area :comment %><br>
+  </div>
+
+  <div>
+    <%#= form.submit "Create" %>
+  </div>
+<%# end %> -->

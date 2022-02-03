@@ -6,11 +6,6 @@ class DashboardController < ApplicationController
 
   def show_all_carts
     @coffees = Coffee.all
-    @user_fav_coffee = current_user.user_cards.pluck(:coffee_id) if user_signed_in?
+    @user_fav_coffee = current_user.items.pluck(:coffee_id) if user_signed_in?
   end
-
- private
-  def cart_item_price
-    current_user.user_fav_coffee.pluck(:coffee_price)
-  end  
 end

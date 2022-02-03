@@ -1,0 +1,44 @@
+ 
+
+<%= form_with url: "/orders", method: :post do |form| %>
+<h3><strong>  <%= form.label :total %></strong></h3><br>
+   <span class="badge bg-primary rounded-pill">
+   <h3> <%=total_price(current_user.items)%></h3>
+   </span>
+   <%= form.hidden_field :total, value: total_price(current_user.items)%>
+  <div>
+      <%= form.label :address %>
+      <%= form.text_field :address %>
+  </div><br>
+
+  <div>
+      <%= form.label :permanent_address %>
+      <%= form.text_field :permanent_address %>
+  </div><br>
+
+  <div>
+      <%= form.label :mobile_no %>
+      <%= form.number_field :mobile_no %>
+      <% @order.errors.full_messages_for(:mobile_no).each do |message| %>
+          <div><%= message %></div>
+      <% end %>
+  </div><br>
+
+  <div>
+      <%= form.label :pincode %>
+      <%= form.text_field :pincode %>
+      <% @order.errors.full_messages_for(:pincode).each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+  </div><br>
+
+  <div>
+      <%= form.submit "Create" %>
+  </div>
+<% end %>
+
+
+  
+<div class="col-lg-2 offset-lg-10">
+<%= link_to 'Back', :back, class:"btn btn-outline-secondary" %>
+</div>

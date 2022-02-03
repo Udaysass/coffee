@@ -28,7 +28,7 @@ class Admin::CoffeesController < Admin::AdminsController
 
   def update
     @coffee = Coffee.find(params[:id])
-    if coffee.update(coffee_params)
+    if @coffee.update(coffee_params)
       redirect_to admin_coffee_path
     else
       render :edit

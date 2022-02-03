@@ -1,21 +1,22 @@
 class PaymentsController < ApplicationController
 
-  before_action 
+   
   def index
-    @payments = Payment.all
+    @payments = current_user.payments
   end  
 
   def new
     @payment = Payment.new
-    @cart_id = params[:cart_id]
+    @order_id = params[:order_id]
+    @user_id = params[:user_id]
   end
 
   def create  
     @payment = Payment.new(payment_params)
-
     if @payment.save
-      redirect_to orders_index_path
-    else
+       UserMailer.order_confirmation(@order, current_user).deliver
+       redirect_to thanks_path, notice: "Order Completed Successfully."
+      else
       render :new 
     end
   end
@@ -25,8 +26,7 @@ class PaymentsController < ApplicationController
   end
 
   private
-
   def payment_params
-    params.require(:payment).permit(:payment_type, :cvc, :cc_exp_month, :card_number, :user_card_id)
+    params.require(:payment).permit(:payment_type, :cvc, :cc_exp_month, :card_number, :order_id, :user_id)
   end
 end

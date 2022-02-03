@@ -1,5 +1,6 @@
 <div class='container'>
-  <% if current_user.user_cards.present? %>
+      
+  <% if current_user.items.present? %>
     <div class="container">
       <div class='row mt-2 p-3'>
         <div class='col-md-8 d-flex justify-content-end'>
@@ -9,7 +10,7 @@
     </div>  
     <div class="container">
       <div class='row'>
-        <% current_user.user_cards.each do |cart| %>
+        <% current_user.items.each do |cart| %>
           <% if @user_fav_coffee.include?(cart.coffee.id) %>
             <div class='col-md-4'> 
               <div class='card mb-5 border-0 shadow fav_cards_items'>
@@ -26,24 +27,37 @@
                 </div>
                 <div class='card-footer mt-1'>
                   <div class='row'>
-                     <label for="count" class="col-sm-4 -label">Qunatity -</label><%= cart.quantity %><br>
+
+                     <label for="count" class="col-sm-4 -label">Quantity -</label><%= cart.quantity %><br>
                       
                      <%= button_to 'Add more +', add_user_card_path(cart.coffee), class: 'btn btn-sm btn-success ml-2' %></div><br>
                      <div class='row'>
-                    <%= button_to 'decrement -', remove_user_card_path(cart.coffee), method: :delete, class: 'btn btn-sm btn-danger ml-2' %>
+                     
+                    <%= button_to 'Remove', remove_user_card_path(cart.coffee), method: :delete, class: 'btn btn-sm btn-danger ml-2' %>
                   </div> <br> 
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    total amount
+                    <span class="badge bg-primary rounded-pill">amount : <%#=sub_total(cart)%><%= sub_total = (cart.coffee.amount).to_i * cart.quantity %> </span>
+                  </li>
                   <div class='row float-right mr-1'>
-                    <%#= link_to 'Buy', 'javascript:void(0)', class: 'btn btn-success mt-3 ml-1' %>
-                    <%#= button_to 'Buy', payments_path(@payment), class: 'btn btn-success mt-3 ml-1' %>
-                    <%= link_to 'Buy', new_payment_path(cart_id: cart.id) %>
+                    <%#= link_to 'Order now', 'javascript:void(0)', class: 'btn btn-success mt-3 ml-1' ,orders_path%>
+                
                   </div>  
                 </div>
               </div>  
             </div>  
           <% end %>
         <% end %>
+
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+                    total price
+        <span class="badge bg-primary rounded-pill">amount : <%=total_price(current_user.items)%> </span>
+      </div><br>
+      <% total = total_price(current_user.items) %>
+      <div class="col-lg-4 offset-lg-10">            
+      <%= link_to 'Order Now', new_order_path(total: total),  class:"btn btn-info"%>
       </div>
-     <%= button_to "Back", root_path, :class => 'btn btn-success mt-3 ml-1' , :method => :get %>
+      <%= button_to "Back", root_path, :class => 'btn btn-dark mt-2 ml-1' , :method => :get %>
     </div> 
   </div>  
   <% else %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_20_074037) do
+ActiveRecord::Schema.define(version: 2022_02_02_052559) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -54,11 +54,44 @@ ActiveRecord::Schema.define(version: 2022_01_20_074037) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "orders", force: :cascade do |t|
+  create_table "dummies", force: :cascade do |t|
+    t.string "address"
+    t.string "permanent_address"
+    t.integer "mobile_no"
+    t.integer "total"
+    t.integer "pincode"
     t.integer "user_id"
-    t.float "total_amount"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "items", force: :cascade do |t|
+    t.integer "itemable_id"
+    t.string "itemable_type"
+    t.integer "quantity"
+    t.integer "coffee_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "order_items", force: :cascade do |t|
+    t.integer "quantity"
+    t.integer "coffee_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "itemable_type"
+    t.integer "itemable_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer "total"
+    t.integer "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "address"
+    t.string "permanent_address"
+    t.integer "mobile_no"
+    t.integer "pincode"
   end
 
   create_table "payments", force: :cascade do |t|
@@ -66,10 +99,19 @@ ActiveRecord::Schema.define(version: 2022_01_20_074037) do
     t.integer "card_number"
     t.integer "cvc"
     t.date "cc_exp_month"
-    t.integer "user_card_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_card_id"], name: "index_payments_on_user_card_id"
+    t.integer "order_id"
+    t.integer "user_id"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.integer "rating"
+    t.text "comment"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
+    t.integer "order_id"
   end
 
   create_table "user_cards", force: :cascade do |t|
@@ -103,7 +145,6 @@ ActiveRecord::Schema.define(version: 2022_01_20_074037) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "payments", "user_cards"
   add_foreign_key "user_cards", "coffees"
   add_foreign_key "user_cards", "users"
 end
